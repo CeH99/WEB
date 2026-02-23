@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Котельня - Панель моніторингу</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Моніторинг: Котельня</h1>
+        <p class="last-update">Останнє оновлення: <span id="lastUpdateTime">--:--:--</span></p>
+    </header>
+
+    <section class="controls">
+        <button id="btnUpdate" class="btn btn-primary"> Оновити дані</button>
+        <button id="btnAuto" class="btn btn-success"> Автооновлення</button>
+        <button id="btnExport" class="btn btn-primary" style="background: #6c757d;"> Експорт CSV</button>
+        <span id="autoStatus">Автооновлення: ВИМКНЕНО</span>
+    </section>
+
+    <main class="dashboard">
+        <div class="card">
+            <h3>Температура теплоносія</h3>
+            <div class="value-wrapper">
+                <span id="val_temp" class="big-number">0</span><span class="unit">°C</span>
+            </div>
+            <div id="stat_temp" class="status-indicator"></div>
+        </div>
+
+        <div class="card">
+            <h3>Тиск у системі</h3>
+            <div class="value-wrapper">
+                <span id="val_pressure" class="big-number">0.0</span><span class="unit">атм</span>
+            </div>
+            <div id="stat_pressure" class="status-indicator"></div>
+        </div>
+
+        <div class="card">
+            <h3>Витрата газу</h3>
+            <div class="value-wrapper">
+                <span id="val_gas" class="big-number">0</span><span class="unit">м³/год</span>
+            </div>
+            <div id="stat_gas" class="status-indicator"></div>
+        </div>
+
+        <div class="card">
+            <h3>Темп. димових газів</h3>
+            <div class="value-wrapper">
+                <span id="val_smoke" class="big-number">0</span><span class="unit">°C</span>
+            </div>
+            <div id="stat_smoke" class="status-indicator"></div>
+        </div>
+
+        <div class="card">
+            <h3>Потужність котла</h3>
+            <div class="value-wrapper">
+                <span id="val_power" class="big-number">0.00</span><span class="unit">МВт</span>
+            </div>
+            <div id="stat_power" class="status-indicator"></div>
+        </div>
+
+        <div class="card">
+            <h3>Циркуляційні насоси</h3>
+            <div class="value-wrapper">
+                <span id="val_pumps" class="big-number" style="font-size: 28px;">Очікування</span>
+            </div>
+            <div id="stat_pumps" class="status-indicator"></div>
+        </div>
+
+        <div class="card">
+            <h3>Рівень води</h3>
+            <div class="value-wrapper">
+                <span id="val_water" class="big-number">0</span><span class="unit">%</span>
+            </div>
+            <div id="stat_water" class="status-indicator"></div>
+        </div>
+
+        <div class="card">
+            <h3>КПД котла</h3>
+            <div class="value-wrapper">
+                <span id="val_kpd" class="big-number">0.0</span><span class="unit">%</span>
+            </div>
+            <div id="stat_kpd" class="status-indicator"></div>
+        </div>
+        <div class="card" style="grid-column: 1 / -1;">
+            <h3> Графік: Потужність котла (МВт)</h3>
+            <div style="position: relative; height: 300px;">
+                <canvas id="powerChart"></canvas>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script src="js/app.js"></script>
+</body>
+</html>

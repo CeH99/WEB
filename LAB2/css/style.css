@@ -1,0 +1,126 @@
+:root {
+    --bg: #f4f4f4;
+    --card: #ffffff;
+    --text: #333333;
+    --primary: #007bff;
+    --success: #28a745;
+    --warning: #ffc107;
+    --danger: #dc3545;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    padding: 15px;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+/* Header */
+header {
+    background: var(--card);
+    padding: 15px;
+    text-align: center;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+/* Controls (Flexbox) */
+.controls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    background: var(--card);
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.btn {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: #fff;
+    transition: 0.2s;
+}
+
+.btn:hover { opacity: 0.8; }
+.btn-primary { background: var(--primary); }
+.btn-success { background: var(--success); }
+.btn-danger { background: var(--danger); }
+
+#autoStatus {
+    margin-left: auto;
+    color: gray;
+}
+
+/* Dashboard (Grid) */
+.dashboard {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+/* Cards */
+.card {
+    background: var(--card);
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    transition: transform 0.2s;
+    border: 1px solid #ddd;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+}
+
+.big-number {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.unit {
+    color: gray;
+    margin-left: 5px;
+}
+
+/* Status dots */
+.status-indicator {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-top: 10px;
+}
+
+.status-normal { background: var(--success); }
+.status-warning { background: var(--warning); }
+.status-danger { 
+    background: var(--danger); 
+    animation: pulse 1s infinite; 
+}
+
+/* Animations */
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.4; }
+    100% { opacity: 1; }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .controls { flex-direction: column; }
+    #autoStatus { margin-left: 0; }
+}
