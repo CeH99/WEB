@@ -70,7 +70,7 @@ function displayAudits(audits) {
             <p><strong>Питоме споживання:</strong> ${audit.specificConsumption} кВт·год/м²</p>
             <p><strong>Статус норм:</strong> 
                 <span class="${audit.normExceeded ? 'norm-exceeded' : 'norm-ok'}">
-                    ${audit.normExceeded ? '⚠️ Перевищення норми!' : '✅ В межах норми'}
+                    ${audit.normExceeded ? 'Перевищення норми!' : 'В межах норми'}
                 </span>
             </p>
             
