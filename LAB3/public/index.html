@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Система Енергоаудиту</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📊 Облік результатів енергоаудиту</h1>
+        </header>
+        <main>
+            <section class="form-section">
+                <h2>Нове обстеження</h2>
+                <form id="auditForm">
+                    <div class="form-group">
+                        <label for="address">Адреса об'єкта *</label>
+                        <input type="text" id="address" name="address" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="buildingType">Тип об'єкта *</label>
+                        <select id="buildingType" name="buildingType" required>
+                            <option value="">Оберіть тип</option>
+                            <option value="residential">Житловий будинок</option>
+                            <option value="commercial">Комерційний об'єкт</option>
+                            <option value="industrial">Промисловий об'єкт</option>
+                            <option value="public">Об'єкт соціальної сфери</option>
+                        </select>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="area">Площа (м²) *</label>
+                            <input type="number" id="area" name="area" required min="1" step="0.1">
+                        </div>
+                        <div class="form-group">
+                            <label for="consumption">Споживання (кВт·год) *</label>
+                            <input type="number" id="consumption" name="consumption" required min="0" step="0.1">
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Зберегти</button>
+                        <button type="reset" class="btn btn-secondary">Очистити</button>
+                    </div>
+                </form>
+                <div id="message" class="message"></div>
+            </section>
+
+            <section class="data-section">
+                <h2>Проведені аудити</h2>
+                <div id="auditList" class="audit-list"></div>
+            </section>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
