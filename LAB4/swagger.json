@@ -1,0 +1,132 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Smart Meter API (АСКОЕ)",
+    "description": "REST API для системи автоматизованого комерційного обліку електроенергії (Варіант 8).",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "Локальний сервер"
+    }
+  ],
+  "paths": {
+    "/api/smart-meters": {
+      "get": {
+        "summary": "Отримати всі лічильники",
+        "parameters": [
+          { "name": "tariff", "in": "query", "schema": { "type": "string" }, "description": "Фільтр за тарифом (day/night/peak)" },
+          { "name": "search", "in": "query", "schema": { "type": "string" }, "description": "Пошук за іменем або адресою" },
+          { "name": "sortBy", "in": "query", "schema": { "type": "string" }, "description": "Сортування (наприклад, energy)" }
+        ],
+        "responses": {
+          "200": { "description": "Успішно" }
+        }
+      },
+      "post": {
+        "summary": "Додати новий лічильник",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "serialNumber": { "type": "string", "example": "SM-2024-003" },
+                  "consumerName": { "type": "string", "example": "Сидоров С.С." },
+                  "address": { "type": "string", "example": "вул. Янгеля, 5" },
+                  "tariff": { "type": "string", "example": "day" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Створено" },
+          "400": { "description": "Помилка валідації" }
+        }
+      }
+    },
+    "/api/smart-meters/{id}": {
+      "get": {
+        "summary": "Отримати лічильник за ID",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+        ],
+        "responses": {
+          "200": { "description": "Успішно" },
+          "404": { "description": "Не знайдено" }
+        }
+      },
+      "put": {
+        "summary": "Оновити дані лічильника",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "consumerName": { "type": "string", "example": "Новий Власник" },
+                  "address": { "type": "string", "example": "нова адреса" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Успішно оновлено" }
+        }
+      }
+    },
+    "/api/smart-meters/{id}/consumption": {
+      "get": {
+        "summary": "Отримати дані споживання",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+        ],
+        "responses": { "200": { "description": "Успішно" } }
+      }
+    },
+    "/api/smart-meters/{id}/history": {
+      "get": {
+        "summary": "Отримати історію показів",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+        ],
+        "responses": { "200": { "description": "Успішно" } }
+      }
+    },
+    "/api/smart-meters/{id}/readings": {
+      "post": {
+        "summary": "Записати нові покази",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "activePower": { "type": "number", "example": 3.2 },
+                  "voltage": { "type": "number", "example": 228 },
+                  "current": { "type": "number", "example": 14.0 },
+                  "addedEnergy": { "type": "number", "example": 12.5 },
+                  "powerFactor": { "type": "number", "example": 0.96 },
+                  "tariff": { "type": "string", "example": "peak" }
+                }
+              }
+            }
+          }
+        },
+        "responses": { "201": { "description": "Покази успішно додано" } }
+      }
+    }
+  }
+}
