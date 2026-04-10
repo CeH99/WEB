@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ТЕЦ: Панель керування</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h2>Система моніторингу ТЕЦ</h2>
+
+    <div class="panel" id="authPanel">
+        <h3>Автентифікація</h3>
+        <div class="form-group">
+            <label>Email</label>
+            <input type="email" id="email" placeholder="Введіть email" value="engineer@tec.com">
+        </div>
+        <div class="form-group">
+            <label>Пароль</label>
+            <input type="password" id="password" placeholder="Введіть пароль" value="SecurePass123">
+        </div>
+        <div class="form-group">
+            <label>Ім'я (тільки для реєстрації)</label>
+            <input type="text" id="name" placeholder="Іван Інженер" value="Іван Інженер">
+        </div>
+        <div class="form-group">
+            <label>Роль (тільки для реєстрації)</label>
+            <select id="role">
+                <option value="operator">Оператор (Тільки читання)</option>
+                <option value="engineer" selected>Інженер (Запис налаштувань)</option>
+                <option value="director">Директор (Повний доступ + Фінанси)</option>
+            </select>
+        </div>
+        <div class="btn-group">
+            <button class="btn-secondary" onclick="register()">Зареєструватися</button>
+            <button class="btn-primary" onclick="login()">Увійти</button>
+        </div>
+    </div>
+
+    <div class="panel" id="actionPanel">
+        <h3>Панель керування (API)</h3>
+        
+        <button class="btn-info" onclick="getParameters()">Отримати поточні параметри ТЕЦ (GET)</button>
+
+        <div class="settings-section">
+            <h4>Зміна параметрів когенерації (PUT)</h4>
+            <div class="form-group">
+                <label>Цільова температура (°C):</label>
+                <input type="number" id="targetTemp" value="95" min="50" max="120">
+            </div>
+            <div class="form-group">
+                <label>Режим роботи:</label>
+                <select id="opMode">
+                    <option value="Eco">Економний (Eco)</option>
+                    <option value="Normal" selected>Нормальний (Normal)</option>
+                    <option value="High Load">Пікове навантаження (High Load)</option>
+                </select>
+            </div>
+            <button class="btn-warning" onclick="updateSettings()">Застосувати налаштування (PUT)</button>
+        </div>
+    </div>
+
+    <div class="log-panel">
+        <h4>Лог відповідей сервера:</h4>
+        <pre id="response">Очікування запитів...</pre>
+    </div>
+
+    <script>
+        const log = (data) => document.getElementById('response').innerText = JSON.stringify(data, null, 2);
+
+        async function register() {
+            const data = {
+                email: document.getElementById('email').value,
+                password: document.getElementById('password').value,
+                name: document.getElementById('name').value,
+                role: document.getElementById('role').value
+            };
+            const res = await fetch('/auth/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+            log(await res.json());
+        }
+
+        async function login() {
+            const data = {
+                email: document.getElementById('email').value,
+                password: document.getElementById('password').value
+            };
+            const res = await fetch('/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+            log(await res.json());
+        }
+
+        async function getParameters() {
+            const res = await fetch('/api/cogeneration/parameters');
+            log(await res.json());
+        }
+
+        async function updateSettings() {
+            const tempValue = document.getElementById('targetTemp').value;
+            const modeValue = document.getElementById('opMode').value;
+            
+            const data = { 
+                targetTemp: `${tempValue}°C`, 
+                mode: modeValue 
+            };
+            
+            const res = await fetch('/api/cogeneration/settings', {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+            log(await res.json());
+        }
+    </script>
+</body>
+</html>
