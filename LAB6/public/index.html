@@ -56,6 +56,14 @@
                     <option value="High Load">Пікове навантаження (High Load)</option>
                 </select>
             </div>
+            <div class="settings-section">
+            <h4>Зміна пароля (Вимога варіанту 8)</h4>
+            <div class="form-group">
+                <label>Новий пароль (мінімум 8 символів):</label>
+                <input type="password" id="newPassword" placeholder="NewSecurePass123!">
+            </div>
+            <button class="btn-secondary" onclick="changePassword()">Змінити пароль (POST)</button>
+        </div>
             <button class="btn-warning" onclick="updateSettings()">Застосувати налаштування (PUT)</button>
         </div>
     </div>
@@ -112,6 +120,18 @@
             
             const res = await fetch('/api/cogeneration/settings', {
                 method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+            log(await res.json());
+        }
+
+        async function changePassword() {
+            const data = {
+                newPassword: document.getElementById('newPassword').value
+            };
+            const res = await fetch('/auth/change-password', {
+                method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data)
             });

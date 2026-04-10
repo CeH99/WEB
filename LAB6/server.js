@@ -37,7 +37,7 @@ app.use(express.urlencoded({ extended: true }));
 // Rate Limiting (захист від brute-force)
 const limiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 хвилин
-    max: 10, // ліміт запитів з одного IP
+    max: 100, // ліміт запитів з одного IP
     message: 'Забагато запитів, спробуйте пізніше'
 });
 app.use(limiter);
@@ -58,6 +58,7 @@ app.use(passport.session());
 
 const csrfProtection = csrf();
 
+//app.use(csrfProtection);
 app.use(express.static('public'));
 app.use('/auth', require('./routes/auth'));
 app.use('/api', require('./routes/api'));

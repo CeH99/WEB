@@ -23,7 +23,7 @@ router.post('/register',
             const hashedPassword = await bcrypt.hash(password, 10);
             const user = await User.create({ email, password: hashedPassword, name, role });
 
-            res.status(201).json({ message: 'Реєстрація успішна', user: { email: user.email, role: user.role } });
+            res.status(201).json({ message: 'Реєстрація успішна', user: { email: user.email, name: user.name, role: user.role } });
         } catch (err) {
             res.status(500).json({ error: err.message });
         }
