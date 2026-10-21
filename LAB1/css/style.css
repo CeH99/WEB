@@ -1,41 +1,155 @@
+:root {
+    color-scheme: light;
+    --color-ink: #263b32;
+    --color-muted: #60736a;
+    --color-green: #32875c;
+    --color-green-dark: #246746;
+    --color-surface: #ffffff;
+    --color-background: #f5f9f6;
+    --shadow-soft: 0 12px 32px rgba(36, 75, 54, 0.09);
+}
+
 body {
     font-family: 'Segoe UI', Tahoma, sans-serif;
+    color: var(--color-ink);
+    background: var(--color-background);
     scroll-behavior: smooth;
 }
 
-.hero-section h1, p {
-    opacity: 0; 
-    /* name | dur | smooth | state */
+.navbar.bg-dark {
+    background-color: rgba(255, 255, 255, 0.96) !important;
+    border-bottom: 1px solid rgba(50, 135, 92, 0.12);
+    box-shadow: 0 4px 18px rgba(36, 75, 54, 0.06);
+    backdrop-filter: blur(12px);
+}
+
+.navbar .navbar-brand {
+    color: var(--color-green-dark);
+    font-weight: 700;
+    letter-spacing: 0.01em;
+}
+
+.navbar .nav-link {
+    color: var(--color-muted);
+    font-weight: 600;
+    transition: color 0.2s ease;
+}
+
+.navbar .nav-link:hover,
+.navbar .nav-link:focus {
+    color: var(--color-green);
+}
+
+.navbar .navbar-toggler {
+    border-color: rgba(50, 135, 92, 0.25);
+}
+
+.navbar .navbar-toggler-icon {
+    filter: brightness(0) saturate(100%) invert(39%) sepia(17%) saturate(1190%) hue-rotate(94deg) brightness(91%) contrast(88%);
+}
+
+.hero-section h1,
+.hero-section p {
+    opacity: 0;
     animation: heroFadeUp 0.8s ease-out forwards;
 }
 
 .hero-section h1 {
     animation-delay: 0.3s;
+    text-wrap: balance;
 }
 
 .hero-section p {
     animation-delay: 0.8s;
+    color: var(--color-muted);
 }
 
 .hero-section {
-    height: 60vh;
-    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)); 
+    min-height: 54vh;
+    padding: 5rem 0;
+    background:
+        radial-gradient(ellipse at 15% 15%, rgba(179, 222, 193, 0.5), transparent 42%),
+        linear-gradient(135deg, #f2faf4 0%, #e4f2e8 100%);
     background-size: cover;
     background-position: center;
-    color: white; 
+    color: var(--color-ink);
+}
+
+.hero-section .lead {
+    max-width: 680px;
+    margin: 1.25rem auto 0;
+    font-size: clamp(1.05rem, 2vw, 1.25rem);
 }
 
 .section-title {
-    color: #2c3e50;
-    border-left: 5px solid #2ecc71;
-    padding-left: 15px;
-    margin-bottom: 30px;
-    font-weight: bold;
+    color: var(--color-ink);
+    border-left: 4px solid var(--color-green);
+    padding-left: 14px;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+}
+
+main > section {
+    padding: clamp(1.25rem, 3vw, 2rem);
+    background-color: var(--color-surface);
+    border: 1px solid rgba(50, 135, 92, 0.08);
+    border-radius: 18px;
+    box-shadow: var(--shadow-soft);
+}
+
+main p {
+    color: var(--color-muted);
+    line-height: 1.75;
+}
+
+main img {
+    border-radius: 14px !important;
+}
+
+.table {
+    --bs-table-bg: transparent;
+    --bs-table-color: var(--color-ink);
+    margin-bottom: 0;
+}
+
+.table thead th {
+    color: var(--color-green-dark);
+    background-color: #edf7ef;
+    border-color: #deebe1;
+}
+
+.table > :not(caption) > * > * {
+    padding: 0.9rem 1rem;
+    border-color: #e8efea;
 }
 
 .table-hover tbody tr:hover {
-    background-color: rgba(46, 204, 113, 0.1);
-    transition: 0.3s;
+    --bs-table-bg-state: #f1f8f3;
+    transition: background-color 0.2s ease;
+}
+
+.card.bg-light {
+    background-color: #f5faf6 !important;
+    border: 1px solid #e5efe7;
+    border-radius: 14px;
+}
+
+.card-body p:last-child {
+    margin-bottom: 0;
+}
+
+.card-body strong {
+    color: var(--color-ink);
+}
+
+footer.bg-dark {
+    background-color: #eaf3ec !important;
+    color: var(--color-muted) !important;
+    border-top: 1px solid #dce9df;
+}
+
+footer p {
+    margin-bottom: 0;
 }
 
 section {
@@ -54,5 +168,23 @@ section {
 }
 
 @media (max-width: 768px) {
-    .hero-section h1 { font-size: 32px; }
+    .hero-section {
+        min-height: 46vh;
+        padding: 4rem 0;
+    }
+
+    .hero-section h1 {
+        font-size: clamp(2rem, 8vw, 2.5rem);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
 }
